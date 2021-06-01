@@ -6,7 +6,7 @@ This project can generate a random sudoku, solve a given sudoku, and allow users
 
 ### Generate Sudoku
 
-Generates a sudoku puzzle by first generating a randomized solution board and taking out clues until taking out the next clue will cause the puzzle to have more than 1 solution. 
+Generates a sudoku puzzle by first generating a randomized solution board and taking out clues until taking out the next clue will cause the puzzle to have more than 1 solutions. 
 
 ### Solve Puzzle
 
