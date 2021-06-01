@@ -1,45 +1,198 @@
-table td {
-  border: solid;
-  border-width: 1px;
+body {
+  background-color: #fefffa;
 }
 
-table {
-  width: 10px;
-  border: 1px solid black;
-  border-collapse: collapse;
-  border-spacing: 0;
+#instruction {
+  margin-top: 1em;
+  font-size: 1.4em;
+  display: flex;
+  flex-direction: column;
 }
 
-table tr:nth-child(3n + 4) {
-  border-top: 3px solid gray;
-}
-
-table td:nth-child(3n + 4) {
-  border-left: 3px solid gray;
-}
-
-.numSquare {
-  width: 30px;
-  height: 30px;
-  border: 0;
-  color: black;
-  font-size: large;
+#instruction p {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 1em;
   text-align: center;
 }
 
-table tr:nth-of-type(2n + 1) td:nth-of-type(2n) input:nth-of-type(1) {
-  background-color: rgb(206, 230, 245);
+#waysWrapper {
+  text-align: center;
 }
 
-table tr:nth-of-type(2n) td:nth-of-type(2n + 1) input:nth-of-type(1) {
-  background-color: rgb(206, 230, 245);
+#waysToStart {
+  padding-left: 12em;
+  display: inline-block;
+  text-align: left;
 }
 
-table tr:nth-of-type(n) td:nth-of-type(n) input:nth-of-type(1).illegal {
+#tableWrapper {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+#panelRow1,
+#panelRow2,
+#panelRow3 {
+  margin: 1.5em;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 4em;
+  row-gap: 2em;
+}
+
+table.ui.celled.table {
+  width: 450px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+table.ui.celled.table td {
+  padding: 0px;
+  width: 50px;
+  height: 50px;
+  border-width: 0px;
+}
+
+input.numSquare {
+  padding: 0;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  color: black;
+  font-size: 1.7em;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+table tbody tr:nth-child(3n + 4) td input {
+  height: 51px;
+  border-top: 1px solid rgb(163, 163, 163);
+}
+
+table tbody tr td:nth-child(3n + 4) input {
+  width: 51px;
+  border-left: 1px solid rgb(163, 163, 163);
+}
+
+table tbody tr:nth-of-type(2n + 1) td:nth-of-type(2n) input {
+  background-color: rgb(237, 241, 243);
+}
+
+table tbody tr:nth-of-type(2n) td:nth-of-type(2n + 1) input {
+  background-color: rgb(237, 241, 243);
+}
+
+table tbody tr:nth-of-type(n) td:nth-of-type(n) input:nth-of-type(1).illegal {
   color: red;
   background-color: rgb(240, 195, 195);
 }
 
+table tbody tr td input {
+  color: #323954;
+}
+
 input.progress {
-  color: blue;
+  color: #4063c2;
+}
+
+input.solution {
+  animation-duration: 2s;
+  animation-name: solutionFadeIn;
+  color: rgb(48, 185, 6);
+}
+
+#header {
+  border: 0;
+}
+
+#header div {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 2em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background-color: #323954;
+  color: #fefffa;
+}
+
+button {
+  font-size: 1.3em;
+  width: 140px;
+  font-family: "Work Sans", sans-serif;
+  background-color: #fa8d85;
+  border: 0;
+  height: 45px;
+}
+
+.buttonWrap {
+  width: 14em;
+}
+
+div.ui.pointing.label {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#solutionButton button {
+  font-family: "Work Sans", sans-serif;
+}
+
+#importButton form button {
+  width: 90px;
+  background-color: rgb(163, 163, 163);
+  margin-top: 5px;
+  font-size: 1em;
+  height: 15px;
+  font-family: "Work Sans", sans-serif;
+}
+
+#importButton form input {
+  font-family: "Work Sans", sans-serif;
+  width: 138px;
+}
+
+@keyframes solutionFadeIn {
+  from {
+    color: rgba(150, 150, 0, 0);
+  }
+  to {
+    color: rgb(48, 185, 6);
+  }
+}
+@media only screen and (max-width: 767px) {
+  #waysToStart {
+    padding-left: 0em;
+  }
+
+  table.ui.celled.table {
+    width: 274px;
+  }
+
+  table.ui.celled.table td,
+  input.numSquare {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1em;
+  }
+
+  table tbody tr:nth-child(3n + 4) td input {
+    height: 31px;
+  }
+
+  table tbody tr td:nth-child(3n + 4) input {
+    width: 31px;
+  }
+
+  table tbody tr:nth-child(3n + 4) td input .ui.table:not(.unstackable) tbody,
+  .ui.table:not(.unstackable) tr,
+  .ui.table:not(.unstackable) tr > td,
+  .ui.table:not(.unstackable) tr > th {
+    display: inline-table !important;
+  }
 }

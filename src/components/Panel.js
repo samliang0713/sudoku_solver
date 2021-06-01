@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import SolutionButton from "./SolutionButton";
+import ImportButton from "./ImportButton";
 import _ from "lodash";
+
+import { removeProgressSquares } from "../sudoku/visual";
+import { newBoard, solve, generateSudoku } from "../sudoku/algorithm";
 
 const Panel = (props) => {
   const [numString, setNumString] = useState("");
@@ -15,41 +20,63 @@ const Panel = (props) => {
       );
   };
 
+  const updateNumString = (e) => {
+    setNumString(e.target.value);
+  };
+
   const onRefreshButtonClick = () => {
-    const newBoard = props.newBoard();
-    props.setBoard(newBoard);
-    props.setProgressBoard(_.cloneDeep(newBoard));
+    const emptyBoard = newBoard();
+    props.setBoard(emptyBoard);
+    props.setProgressBoard(_.cloneDeep(emptyBoard));
   };
 
   const onSolveButtonClick = () => {
-    const solutionBoard = props.solve(props.board);
-    props.setProgressBoard(solutionBoard);
+    if (solve(props.board).length) {
+      console.log("inside if statemetn!");
+      const solutionBoard = solve(props.board)[0];
+      props.setProgressBoard(solutionBoard);
+      const progressSquares = document.getElementsByClassName("progress");
+      Array.from(progressSquares).forEach((square) => {
+        square.classList.add("solution");
+      });
+    }
   };
 
   const onSetBoardButtonClick = () => {
     const currentBoard = _.cloneDeep(props.progressBoard);
     props.setBoard(currentBoard);
-    props.removeProgressSquares();
+    removeProgressSquares();
+  };
+
+  const onGenerateSudokuButtonClick = () => {
+    const newBoard = generateSudoku();
+    props.setBoard(newBoard);
+    props.setProgressBoard(newBoard);
+    removeProgressSquares();
   };
 
   return (
-    <div>
-      <form onSubmit={onFormSubmit}>
-        <label for="">Import a Sudoku</label>
-        <div>
-          <input
-            type="number"
-            id="importNumString"
-            value={numString}
-            onChange={(e) => setNumString(e.target.value)}
-          ></input>
-          <button>Submit</button>
-        </div>
-      </form>
+    <div className="ui container center aligned">
+      <div id="panelRow1">
+        <Button
+          onButtonClick={onGenerateSudokuButtonClick}
+          text="Generate Sudoku"
+        />
+        <Button onButtonClick={onSolveButtonClick} text="Solve Puzzle" />
+      </div>
 
-      <Button onButtonClick={onSolveButtonClick} text="Solve Puzzle" />
-      <Button onButtonClick={onRefreshButtonClick} text="Refresh" />
-      <Button onButtonClick={onSetBoardButtonClick} text="Set Board" />
+      <div id="panelRow2">
+        <Button onButtonClick={onSetBoardButtonClick} text="Set Board" />
+        <Button onButtonClick={onRefreshButtonClick} text="Clear Board" />
+      </div>
+      <div id="panelRow3">
+        <SolutionButton solve={solve} board={props.board} />
+        <ImportButton
+          onFormSubmit={onFormSubmit}
+          updateNumString={updateNumString}
+          numString={numString}
+        />
+      </div>
     </div>
   );
 };
