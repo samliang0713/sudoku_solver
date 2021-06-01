@@ -14,7 +14,7 @@ Solves any sudoku puzzle that has at least 1 solution with the backtracking algo
 
 ### Set Board
 
-Allows users to create their puzzles by setting the current numbers on the board to be the puzzle.
+Allows users to create their puzzles by setting the current numbers on the board to be a puzzle.
 
 ### Clear Board
 
