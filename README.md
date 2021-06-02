@@ -2,7 +2,7 @@
 
 This project can generate a random sudoku, solve a given sudoku, and allow users to create their puzzles. Check it out [here](https://samliang0713.github.io/sudoku_solver/)!
 
-## Functions
+## Features
 
 ### Generate Sudoku
 
