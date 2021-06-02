@@ -130,6 +130,7 @@ button {
   border: 0;
   height: 45px;
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  cursor: pointer;
 }
 
 button:hover {
