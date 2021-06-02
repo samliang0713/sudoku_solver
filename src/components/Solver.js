@@ -3,9 +3,13 @@ import _ from "lodash";
 import React from "react";
 
 import "../css/Solver.css";
-
-import { removeProgressSquares, removeSolutionSquares } from "../sudoku/visual";
-import { newBoard, isLegalPlacement } from "../sudoku/algorithm";
+import { newBoard, isLegalPlacement, isSolved } from "../sudoku/algorithm";
+import {
+  removeProgressSquares,
+  removeSolutionSquares,
+  onArrowKeys,
+  animateTable,
+} from "../sudoku/visual";
 
 class Solver extends React.Component {
   constructor(props) {
@@ -38,16 +42,14 @@ class Solver extends React.Component {
     }
 
     removeProgressSquares();
-    removeSolutionSquares();
 
-    this.setState({
-      board: importBoard,
-      progressBoard: _.cloneDeep(importBoard),
-    });
+    this.setBoard(importBoard);
+    this.setProgressBoard(_.cloneDeep(importBoard));
   };
 
   setBoard = (board) => {
     removeSolutionSquares();
+    animateTable();
     this.setState({ board });
   };
 
@@ -56,7 +58,7 @@ class Solver extends React.Component {
   };
 
   /*
-   *Render Elements & Display Logic
+   *Render Elements & Display
    */
 
   processInput = (e) => {
@@ -94,6 +96,7 @@ class Solver extends React.Component {
                   onChange={(e) => {
                     this.processInput(e);
                   }}
+                  onKeyDown={onArrowKeys}
                   id={`${rowCounter}${colCounter}`}
                 ></input>
               </td>
@@ -102,6 +105,21 @@ class Solver extends React.Component {
         </tr>
       );
     });
+  }
+
+  renderSuccessMessage() {
+    if (isSolved(this.state.progressBoard)) {
+      return (
+        <div id="successMessage">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Congrats! <br />
+          You solved the puzzle!
+        </div>
+      );
+    }
   }
 
   /*
@@ -147,11 +165,17 @@ class Solver extends React.Component {
     return (
       <div>
         <div className="ui container" id="tableWrapper">
-          <table className="ui celled table">
+          <table className="ui celled table" id="boardTable">
             <tbody>{this.renderBoard()}</tbody>
           </table>
         </div>
         <div className="ui center aligned container">
+          <div
+            className="ui container center aligned"
+            id="successMessageWrapper"
+          >
+            {this.renderSuccessMessage()}
+          </div>
           <Panel
             importBoard={this.importBoard}
             progressBoard={this.state.progressBoard}
@@ -165,11 +189,3 @@ class Solver extends React.Component {
   }
 }
 export default Solver;
-
-// testB.importBoard(
-//   "000000010004087006060053000623008700700000025000702000030070002800024560052001040"
-// );
-
-// testB.printBoard(testB.board);
-// console.log("==============================");
-// solveA.solution().printBoard();

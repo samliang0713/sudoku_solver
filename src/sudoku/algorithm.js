@@ -93,9 +93,13 @@ const isFilled = function (board) {
 
 const isSolved = function (board) {
   for (let row = 1; row <= board.length; row++) {
-    for (let col = 1; col < board.length; col++) {
-      if (isLegalPlacement(board[row - 1][col - 1], row, col, board))
+    for (let col = 1; col <= board.length; col++) {
+      if (
+        board[row - 1][col - 1] === 0 ||
+        !isLegalPlacement(board[row - 1][col - 1], row, col, board)
+      ) {
         return false;
+      }
     }
   }
   return true;

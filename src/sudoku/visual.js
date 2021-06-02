@@ -24,4 +24,72 @@ const removeSolutionSquares = function () {
   });
 };
 
-export { printBoard, removeProgressSquares, removeSolutionSquares };
+const onArrowKeys = function (e) {
+  const key = e.key;
+  const currentId = e.target.id;
+  switch (key) {
+    case "ArrowUp":
+      document
+        .getElementById(
+          `${
+            Number.parseInt(currentId[0]) !== 1
+              ? Number.parseInt(currentId[0]) - 1
+              : 1
+          }${currentId[1]}`
+        )
+        .focus();
+      break;
+    case "ArrowDown":
+      document
+        .getElementById(
+          `${
+            Number.parseInt(currentId[0]) !== 9
+              ? Number.parseInt(currentId[0]) + 1
+              : 9
+          }${currentId[1]}`
+        )
+        .focus();
+      break;
+    case "ArrowLeft":
+      document
+        .getElementById(
+          `${currentId[0]}${
+            Number.parseInt(currentId[1]) !== 1
+              ? Number.parseInt(currentId[1]) - 1
+              : 1
+          }`
+        )
+        .focus();
+      break;
+    case "ArrowRight":
+      document
+        .getElementById(
+          `${currentId[0]}${
+            Number.parseInt(currentId[1]) !== 9
+              ? Number.parseInt(currentId[1]) + 1
+              : 9
+          }`
+        )
+        .focus();
+      break;
+    default:
+      break;
+  }
+};
+
+const animateTable = function () {
+  const table = document.getElementById("boardTable");
+  for (let i = 0; i < table.children[0].children.length; i++) {
+    table.children[0].children[i].animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 1500,
+      easing: "ease-in-out",
+    });
+  }
+};
+export {
+  printBoard,
+  removeProgressSquares,
+  removeSolutionSquares,
+  onArrowKeys,
+  animateTable,
+};

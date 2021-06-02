@@ -32,7 +32,6 @@ const Panel = (props) => {
 
   const onSolveButtonClick = () => {
     if (solve(props.board).length) {
-      console.log("inside if statemetn!");
       const solutionBoard = solve(props.board)[0];
       props.setProgressBoard(solutionBoard);
       const progressSquares = document.getElementsByClassName("progress");
